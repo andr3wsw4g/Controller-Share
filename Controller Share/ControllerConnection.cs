@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
-
-
+using System.Runtime.InteropServices.ComTypes;
+using System.Runtime.Serialization;
+using vJoyInterfaceWrap;
 
 namespace Controller_Share
 {
@@ -56,7 +57,7 @@ namespace Controller_Share
             {
                 iAddress = IPAddress.Parse(ip);
                 Console.WriteLine(this.iAddress.ToString());
-                this.iEP = new IPEndPoint(IPAddress.Parse(ip), port);
+                this.iEP = new IPEndPoint(iAddress, port);
                 Console.WriteLine(this.iEP.ToString());
                 Console.WriteLine(iAddress.AddressFamily);
                 Console.WriteLine(SocketType.Stream);
@@ -65,7 +66,8 @@ namespace Controller_Share
                 try
                 {
                     iSocket.Connect(iEP);
-                    Console.WriteLine("Socket Connected to {0}", iSocket.RemoteEndPoint.ToString());
+                    Console.WriteLine("Socket Connected to {0}", iSocket.RemoteEndPoint.ToString());                    
+                    //
                     sMessage = Encoding.ASCII.GetBytes("This is a test<EOF>");
                     Message s = new Message(System.DateTime.Now, iSocket.Send(sMessage));
                     iSHistory.Add(s);
@@ -130,10 +132,6 @@ namespace Controller_Share
             }
             return IPAddress.Any;
         }
-        public ControllerHost()
-        {
-
-        }
         public static ManualResetEvent allDone = new ManualResetEvent(false);
         public byte[] sMessage { get; private set; }
         public byte[] rMessage { get; private set; }
@@ -145,9 +143,9 @@ namespace Controller_Share
         public Socket iSocket { get; private set; }
         public IPEndPoint iEP { get; private set; }
         public ProtocolType iType { get; private set; }
+        public Dictionary<IPEndPoint,vJoy> controllers= new Dictionary<IPEndPoint, vJoy>();
         public void Listen(Int32 port, SocketType a)
         {
-
             switch (a)
             {
                 case SocketType.Dgram:
@@ -176,7 +174,7 @@ namespace Controller_Share
             // running the listener is "host.contoso.com".  
             iHost = Dns.GetHostEntry(string.Empty);
             iAddress = getIPv4(iHost.AddressList);
-            iEP = new IPEndPoint(iAddress, 11000);
+            iEP = new IPEndPoint(iAddress, port);
 
             // Create a TCP/IP socket.  
             Socket listener = new Socket(iAddress.AddressFamily,
@@ -214,7 +212,7 @@ namespace Controller_Share
 
         }
         
-        public static void AcceptCallback(IAsyncResult ar)
+        public void AcceptCallback(IAsyncResult ar)
         {
             // Signal the main thread to continue.  
             allDone.Set();
@@ -222,14 +220,15 @@ namespace Controller_Share
             // Get the socket that handles the client request.  
             Socket listener = (Socket)ar.AsyncState;
             Socket handler = listener.EndAccept(ar);
-
+            //create the XInput controller
+            controllers.Add(((IPEndPoint)handler.RemoteEndPoint),new vJoy());
             // Create the state object.  
             StateObject state = new StateObject();
             state.workSocket = handler;
             handler.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
                 new AsyncCallback(ReadCallback), state);
         }
-        public static void ReadCallback(IAsyncResult ar)
+        public void ReadCallback(IAsyncResult ar)
         {
             String content = String.Empty;
 
@@ -250,14 +249,17 @@ namespace Controller_Share
                 // Check for end-of-file tag. If it is not there, read   
                 // more data.  
                 content = state.sb.ToString();
-                if (content.IndexOf("<EOF>") > -1)
+                if (content.IndexOf(((char)26)) > -1)
                 {
+                    //grab the vJoy by the IPEndpoint
+                    vJoy current_controller = controllers[(IPEndPoint)handler.RemoteEndPoint];
+                    
                     // All the data has been read from the   
                     // client. Display it on the console.  
                     Console.WriteLine("Read {0} bytes from socket. \n Data : {1}",
                         content.Length, content);
                     // Echo the data back to the client.  
-                    Send(handler, content);
+                    Send(handler, "You sent: " + content);
                 }
                 else
                 {

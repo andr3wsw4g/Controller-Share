@@ -14,3 +14,26 @@ C:\Users\Andrew\source\repos\Controller Share\Controller Share\obj\Debug\Control
 C:\Users\Andrew\source\repos\Controller Share\Controller Share\obj\Debug\Controller Share.exe
 C:\Users\Andrew\source\repos\Controller Share\Controller Share\obj\Debug\Controller Share.pdb
 C:\Users\Andrew\source\repos\Controller Share\Controller Share\obj\Debug\App.baml
+C:\Users\Andrew\Source\Repos\Controller-Share\Controller Share\bin\Debug\Controller Share.exe.config
+C:\Users\Andrew\Source\Repos\Controller-Share\Controller Share\bin\Debug\Controller Share.exe
+C:\Users\Andrew\Source\Repos\Controller-Share\Controller Share\bin\Debug\Controller Share.pdb
+C:\Users\Andrew\Source\Repos\Controller-Share\Controller Share\obj\Debug\Controller Share.csprojAssemblyReference.cache
+C:\Users\Andrew\Source\Repos\Controller-Share\Controller Share\obj\Debug\App.baml
+C:\Users\Andrew\Source\Repos\Controller-Share\Controller Share\obj\Debug\MainWindow.g.cs
+C:\Users\Andrew\Source\Repos\Controller-Share\Controller Share\obj\Debug\App.g.cs
+C:\Users\Andrew\Source\Repos\Controller-Share\Controller Share\obj\Debug\Controller Share_MarkupCompile.cache
+C:\Users\Andrew\Source\Repos\Controller-Share\Controller Share\obj\Debug\Controller Share_MarkupCompile.lref
+C:\Users\Andrew\Source\Repos\Controller-Share\Controller Share\obj\Debug\MainWindow.baml
+C:\Users\Andrew\Source\Repos\Controller-Share\Controller Share\obj\Debug\Controller Share.g.resources
+C:\Users\Andrew\Source\Repos\Controller-Share\Controller Share\obj\Debug\Controller_Share.Properties.Resources.resources
+C:\Users\Andrew\Source\Repos\Controller-Share\Controller Share\obj\Debug\Controller Share.csproj.GenerateResource.cache
+C:\Users\Andrew\Source\Repos\Controller-Share\Controller Share\obj\Debug\Controller Share.csproj.CoreCompileInputs.cache
+C:\Users\Andrew\Source\Repos\Controller-Share\Controller Share\obj\Debug\Controller Share.exe
+C:\Users\Andrew\Source\Repos\Controller-Share\Controller Share\obj\Debug\Controller Share.pdb
+C:\Users\Andrew\Source\Repos\Controller-Share\Controller Share\bin\Debug\SharpDX.dll
+C:\Users\Andrew\Source\Repos\Controller-Share\Controller Share\bin\Debug\SharpDX.XInput.dll
+C:\Users\Andrew\Source\Repos\Controller-Share\Controller Share\bin\Debug\SharpDX.pdb
+C:\Users\Andrew\Source\Repos\Controller-Share\Controller Share\bin\Debug\SharpDX.XInput.pdb
+C:\Users\Andrew\Source\Repos\Controller-Share\Controller Share\bin\Debug\SharpDX.XInput.xml
+C:\Users\Andrew\Source\Repos\Controller-Share\Controller Share\obj\Debug\Controller Share.csproj.CopyComplete
+C:\Users\Andrew\Source\Repos\Controller-Share\Controller Share\bin\Debug\vJoyInterfaceWrap.dll

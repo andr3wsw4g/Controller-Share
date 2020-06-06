@@ -16,14 +16,18 @@ using System.Windows.Shapes;
 using System.IO;
 using System.Windows.Threading;
 using System.Net.Sockets;
+using vJoyInterfaceWrap;
+using System.Data.SqlTypes;
+
 namespace Controller_Share
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-        
+    
     public partial class MainWindow : Window
     {
+        List<ControllerHost> host = new List<ControllerHost>();
         int i;
         DispatcherTimer timer1;
         TextOutput console;
@@ -35,10 +39,10 @@ namespace Controller_Share
             console = new TextOutput(tConsole);
             Console.SetOut(console);
             Console.WriteLine("Started");
-            timer1 = new DispatcherTimer();
-            timer1.Interval = TimeSpan.FromMilliseconds(1000);
-            timer1.Tick += timer_Tick;
-            timer1.Start();
+            //timer1 = new DispatcherTimer();
+            //timer1.Interval = TimeSpan.FromMilliseconds(1000);
+            //timer1.Tick += timer_Tick;
+            //timer1.Start();
             
         }
         
@@ -57,8 +61,13 @@ namespace Controller_Share
 
         private void btnHost_Click(object sender, RoutedEventArgs e)
         {
-            ControllerHost host = new ControllerHost();
-            host.Listen(25565, SocketType.Stream);
+            if (host.Count > 0)
+            {
+                Console.WriteLine("Program is already hosting the server.");
+                return;
+            }
+            host.Add( new ControllerHost());
+            var t = Task.Run(()=> { host[0].Listen(25565, SocketType.Stream); });
 
         }
     }
